@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'de.fuerstenau.buildconfig' version '1.1.8'
+}
+//apply plugin: 'java'
+
+group 'com.mariiapasichna'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+buildConfig {
+    buildConfigField 'String', 'SERVER_URL', 'https://jsonplaceholder.typicode.com/'
+    buildConfigField 'boolean', 'DEBUG', 'false'
+}
+
+dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
+
+    def retrofit_version = "2.8.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation('com.squareup.okhttp3:logging-interceptor:3.12.10') {
+        exclude group: 'com.squareup.okhttp3'
+    }
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
